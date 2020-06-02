@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Radio</string>
+
+    <string name="schedule_title">Schedule</string>
+    <string name="news_title">News</string>
+    <string name="loading">Loading…</string>
+
+    <string name="cd_presenter_icon">Presenter Icon</string>
+    <string name="cd_play_button">Play Button</string>
+</resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/header_text"
+        android:layout_margin="@dimen/spacing_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Monday"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_rare"
+        android:layout_marginBottom="@dimen/spacing_rare"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="@dimen/spacing_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                tools:src="@drawable/ic_account"
+                android:contentDescription="@string/cd_presenter_icon"
+                android:id="@+id/presenter_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/presenter_avatar"
+                android:layout_height="@dimen/presenter_avatar" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                app:layout_constraintEnd_toStartOf="@id/presenter_avatar"
+                android:id="@+id/title"
+                tools:text="Underground Love"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:layout_marginTop="@dimen/spacing_rare"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:id="@+id/description"
+                app:layout_constraintEnd_toStartOf="@id/presenter_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Hip Hop, Beats, Bass &amp; Experimental"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@id/description"
+                android:layout_marginTop="@dimen/spacing_rare"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:id="@+id/presenter_name"
+                app:layout_constraintEnd_toStartOf="@id/presenter_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Jordan Oakley"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textview.MaterialTextView
+                app:layout_constraintTop_toBottomOf="@id/presenter_name"
+                android:layout_marginTop="@dimen/spacing_rare"
+                style="@style/TextAppearance.MaterialComponents.Body2"
+                android:id="@+id/time_text"
+                app:layout_constraintEnd_toStartOf="@id/presenter_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="10 PM - 12 AM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
