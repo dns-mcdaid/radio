@@ -1,4 +1,4 @@
-package dev.dennismcdaid.radio.ui
+package dev.dennismcdaid.radio.ui.main
 
 import androidx.annotation.StringRes
 import coil.api.load
@@ -39,7 +39,7 @@ fun ViewPlayerBinding.bind(state: PlayerViewState) {
             }
         }
         is PlayerViewState.Loading -> {
-            showName.setText(state.message)
+            showName.setText(PlayerViewState.Loading.message)
             playButton.isEnabled = false
         }
         is PlayerViewState.Error -> {

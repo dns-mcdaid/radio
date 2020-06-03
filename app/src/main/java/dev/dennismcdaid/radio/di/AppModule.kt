@@ -1,5 +1,6 @@
 package dev.dennismcdaid.radio.di
 
+import android.app.NotificationManager
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.Moshi
@@ -19,7 +20,8 @@ import javax.inject.Singleton
 
 @Module(
     includes = [
-        AppModuleBinds::class
+        AppModuleBinds::class,
+        AudioModule::class
     ]
 )
 object AppModule {
@@ -60,5 +62,11 @@ object AppModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(EmitApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationManager(context: Context): NotificationManager {
+        return context.getSystemService(NotificationManager::class.java) as NotificationManager
     }
 }

@@ -1,4 +1,4 @@
-package dev.dennismcdaid.radio.ui
+package dev.dennismcdaid.radio.ui.main
 
 import android.content.Intent
 import android.media.MediaPlayer
@@ -15,12 +15,12 @@ import dagger.android.support.DaggerAppCompatActivity
 import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.databinding.ActivityMainBinding
 import dev.dennismcdaid.radio.service.AudioPlayerService
-import dev.dennismcdaid.radio.ui.util.loadPresenter
+import dev.dennismcdaid.radio.ui.EventObserver
+import dev.dennismcdaid.radio.ui.StreamAction
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
-
-    private var mp: MediaPlayer? = null
 
     lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -42,18 +42,30 @@ class MainActivity : DaggerAppCompatActivity() {
 
         binding.navigationView.setupWithNavController(navController)
 
+        binding.nowPlaying.playButton.setOnClickListener {
+            viewModel.onPlayClicked()
+        }
+
         viewModel.playerState.observe(this) {
             binding.nowPlaying.bind(it)
         }
-    }
 
-    private fun startAudio(url: String) {
-        val intent = Intent(this, AudioPlayerService::class.java).apply {
-            putExtra(AudioPlayerService.STREAM_URL_KEY, url)
-        }
-        startForegroundService(intent)
+        viewModel.streamAction.observe(this, EventObserver { action ->
+            when (action) {
+                StreamAction.Stop -> {
+                    stopService(Intent(this, AudioPlayerService::class.java))
+                }
+                StreamAction.Error -> {
 
-        mp = MediaPlayer.create(applicationContext, url.toUri())
-        mp?.start()
+                }
+                is StreamAction.Start -> {
+                    Timber.d("LAUNCHING")
+                    val intent = Intent(this, AudioPlayerService::class.java).apply {
+                        putExtra(AudioPlayerService.STREAM_URL_KEY, action.url)
+                    }
+                    startForegroundService(intent)
+                }
+            }
+        })
     }
 }

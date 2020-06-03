@@ -102,6 +102,9 @@ dependencies {
 
     // Data
     implementation 'joda-time:joda-time:2.10.4'
+
+    // Player
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
     // Debugging
     implementation "com.jakewharton.timber:timber:4.7.1"
 

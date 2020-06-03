@@ -7,8 +7,8 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import dev.dennismcdaid.radio.di.ViewModelBuilder
 import dev.dennismcdaid.radio.di.ViewModelKey
-import dev.dennismcdaid.radio.ui.MainActivity
-import dev.dennismcdaid.radio.ui.MainViewModel
+import dev.dennismcdaid.radio.ui.main.MainActivity
+import dev.dennismcdaid.radio.ui.main.MainViewModel
 
 @Module
 abstract class MainModule {
