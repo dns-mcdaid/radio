@@ -7,7 +7,7 @@ import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.data.model.Episode
 import dev.dennismcdaid.radio.data.model.Program
 
-fun ImageView.loadPresenter(program: Program, circleCrop: Boolean = false) = load(program.imageUrl) {
+fun ImageView.loadPresenter(program: Program, circleCrop: Boolean = false) = load(program.avatarUrl) {
     crossfade(true)
     placeholder(R.drawable.ic_account)
     if (circleCrop) transformations(CircleCropTransformation())

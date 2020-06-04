@@ -11,4 +11,11 @@ data class Program(
     val lastEpisode: Episode? = null,
     val nextEpisode: Episode? = null,
     val currentEpisode: Episode? = null
-)
+) {
+
+    val avatarUrl : String? = if (imageUrl?.contains(HTTPS) == true) imageUrl else imageUrl?.replace("http", "https")
+
+    companion object {
+        private const val HTTPS = "https"
+    }
+}

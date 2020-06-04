@@ -9,6 +9,7 @@ import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.data.model.Program
 import dev.dennismcdaid.radio.databinding.ItemProgramBinding
 import dev.dennismcdaid.radio.ui.util.diffCallback
+import timber.log.Timber
 
 class ProgramListAdapter(private val viewModel: ProgramListViewModel) : ListAdapter<Program, ProgramListAdapter.ViewHolder>(
     diffCallback { oldItem, newItem -> oldItem.name == newItem.name }
@@ -26,7 +27,7 @@ class ProgramListAdapter(private val viewModel: ProgramListViewModel) : ListAdap
     class ViewHolder(private val binding: ItemProgramBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(program: Program, viewModel: ProgramListViewModel) {
-            binding.presenterAvatar.load(program.imageUrl) {
+            binding.presenterAvatar.load(program.avatarUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_sound)
                 error(R.drawable.ic_sound)
