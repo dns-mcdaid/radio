@@ -7,17 +7,13 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
+import android.media.MediaPlayer
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.source.hls.DefaultHlsDataSourceFactory
-import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import dagger.android.DaggerService
 import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.ui.main.MainActivity
-import timber.log.Timber
 import javax.inject.Inject
 
 class AudioPlayerService : DaggerService() {
@@ -25,11 +21,9 @@ class AudioPlayerService : DaggerService() {
     @Inject
     lateinit var notificationManager: NotificationManager
 
-    @Inject
-    lateinit var player: ExoPlayer
-
-    @Inject
-    lateinit var dataSourceFactory: DefaultDataSourceFactory
+    private val player = MediaPlayer().apply {
+        setOnPreparedListener { start() }
+    }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -41,16 +35,14 @@ class AudioPlayerService : DaggerService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Timber.d("STARTED")
         val url = intent?.getStringExtra(STREAM_URL_KEY)
             ?: return super.onStartCommand(intent, flags, startId)
 
-        val factory = DefaultHlsDataSourceFactory(dataSourceFactory)
-        val potato = HlsMediaSource.Factory(factory)
-            .createMediaSource(url.toUri())
-
-
-        player.prepare(potato)
+        if (!player.isPlaying) {
+            player.setDataSource(applicationContext, url.toUri())
+            player.isLooping = true
+            player.prepareAsync()
+        }
         return START_STICKY
     }
 
