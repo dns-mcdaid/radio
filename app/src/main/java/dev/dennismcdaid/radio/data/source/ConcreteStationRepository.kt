@@ -36,7 +36,10 @@ class ConcreteStationRepository @Inject constructor(
     }
 
     override fun getShows(): Flow<List<Program>> {
-        TODO("Not yet implemented")
+        return flow {
+            val result = emitApi.getShows(stationName)
+            emit(result)
+        }
     }
 
     override fun getProgram(programName: String): Flow<Program> {

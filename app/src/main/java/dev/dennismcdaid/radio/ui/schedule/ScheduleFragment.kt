@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import dagger.android.support.DaggerFragment
-import dev.dennismcdaid.radio.databinding.ScheduleFragmentBinding
+import dev.dennismcdaid.radio.databinding.FragmentScheduleBinding
 import javax.inject.Inject
 
 class ScheduleFragment : DaggerFragment() {
@@ -22,13 +22,13 @@ class ScheduleFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel by viewModels<ScheduleViewModel> { viewModelFactory }
 
-    private var binding: ScheduleFragmentBinding? = null
+    private var binding: FragmentScheduleBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ScheduleFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentScheduleBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

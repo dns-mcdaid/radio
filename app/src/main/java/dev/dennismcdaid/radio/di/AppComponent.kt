@@ -8,6 +8,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 import dev.dennismcdaid.radio.RadioApp
 import dev.dennismcdaid.radio.di.module.AudioModule
 import dev.dennismcdaid.radio.di.module.MainModule
+import dev.dennismcdaid.radio.di.module.ProgramModule
 import dev.dennismcdaid.radio.di.module.ScheduleModule
 import javax.inject.Singleton
 
@@ -17,6 +18,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         AudioModule::class,
+        ProgramModule::class,
         MainModule::class,
         ScheduleModule::class
     ]

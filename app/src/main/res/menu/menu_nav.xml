@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_queue"
         android:title="@string/schedule_title" />
     <item
-        android:id="@+id/news"
-        android:icon="@drawable/ic_news"
-        android:title="@string/news_title" />
+        android:id="@+id/programs"
+        android:icon="@drawable/ic_speaker_group"
+        android:title="@string/program_title" />
 </menu>

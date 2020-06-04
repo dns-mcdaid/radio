@@ -8,4 +8,5 @@
     <dimen name="spacing_burnt">48dp</dimen>
     <dimen name="spacing_charred">64dp</dimen>
     <dimen name="presenter_avatar">80dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

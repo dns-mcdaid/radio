@@ -12,7 +12,7 @@ class ScheduleViewModel @Inject constructor(
     private val stationRepo: StationRepository
 ) : ViewModel() {
 
-    val mainContext = Dispatchers.Default + viewModelScope.coroutineContext
+    private val mainContext = Dispatchers.Default + viewModelScope.coroutineContext
 
     val schedule = stationRepo.getSchedule()
         .map { episodes ->

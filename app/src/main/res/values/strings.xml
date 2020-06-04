@@ -7,6 +7,7 @@
 
     <string name="now_playing">Now Playing</string>
     <string name="stream_audio">Stream Audio</string>
+    <string name="program_title">Shows</string>
 
     <string name="cd_presenter_icon">Presenter Icon</string>
     <string name="cd_play_button">Play Button</string>
