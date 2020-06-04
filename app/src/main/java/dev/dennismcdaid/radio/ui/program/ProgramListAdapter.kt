@@ -27,6 +27,7 @@ class ProgramListAdapter(private val viewModel: ProgramListViewModel) : ListAdap
 
         fun bind(program: Program, viewModel: ProgramListViewModel) {
             binding.presenterAvatar.load(program.imageUrl) {
+                crossfade(true)
                 placeholder(R.drawable.ic_sound)
                 error(R.drawable.ic_sound)
             }

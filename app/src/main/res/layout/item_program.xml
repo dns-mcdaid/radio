@@ -33,7 +33,7 @@
                 app:layout_constraintDimensionRatio="16:8" />
 
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_margin="@dimen/spacing_rare"
                 android:id="@+id/program_name"
                 app:layout_constraintTop_toBottomOf="@id/presenter_avatar"
