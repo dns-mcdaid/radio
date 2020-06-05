@@ -4,18 +4,54 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/program_search_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/spacing_medium"
+        app:startIconDrawable="@drawable/ic_search"
+        app:endIconMode="custom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/program_search_input"
+            android:hint="@string/program_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/program_search_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/program_search_empty"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/empty_results"
+        android:layout_margin="@dimen/spacing_medium"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/program_list"
+        android:layout_marginTop="@dimen/spacing_medium"
         android:paddingStart="@dimen/spacing_blue_rare"
         android:paddingEnd="@dimen/spacing_blue_rare"
         android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideOverlay"
         android:paddingTop="@dimen/spacing_medium"
         android:paddingBottom="@dimen/spacing_medium"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
+        app:layout_constraintTop_toBottomOf="@id/program_search_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:spanCount="2"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         tools:listitem="@layout/item_program"
         android:layout_width="0dp"

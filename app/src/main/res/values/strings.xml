@@ -9,6 +9,9 @@
     <string name="stream_audio">Stream Audio</string>
     <string name="program_title">Shows</string>
 
+    <string name="program_search">Find a program</string>
+    <string name="program_search_empty">No programs found</string>
+
     <string name="cd_presenter_icon">Presenter Icon</string>
     <string name="cd_play_button">Play Button</string>
 </resources>
