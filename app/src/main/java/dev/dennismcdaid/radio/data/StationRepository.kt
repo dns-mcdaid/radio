@@ -1,22 +1,23 @@
 package dev.dennismcdaid.radio.data
 
-import dev.dennismcdaid.radio.data.model.Episode
 import dev.dennismcdaid.radio.data.model.Program
-import dev.dennismcdaid.radio.data.model.Station
+import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
+import dev.dennismcdaid.radio.data.model.emit.EmitProgram
+import dev.dennismcdaid.radio.data.model.emit.EmitStation
 import kotlinx.coroutines.flow.Flow
 
 interface StationRepository {
-    fun getStation(): Flow<Station>
+    fun getStation(): Flow<EmitStation>
 
-    fun getOnAir(): Flow<List<Episode>>
+    fun getOnAir(): Flow<List<EmitEpisode>>
 
-    fun getSchedule(): Flow<List<Episode>>
+    fun getSchedule(): Flow<List<EmitEpisode>>
 
-    fun getShows(): Flow<List<Program>>
+    fun getShows(): Flow<List<EmitProgram>>
 
-    fun getProgram(programName: String): Flow<Program>
+    fun getProgram(slug: String): Flow<Program>
 
-    fun getEpisodes(programName: String): Flow<List<Episode>>
+    fun getEpisodes(programName: String): Flow<List<EmitEpisode>>
 
-    fun getEpisode(programName: String, timestamp: String): Flow<Episode>
+    fun getEpisode(programName: String, timestamp: String): Flow<EmitEpisode>
 }

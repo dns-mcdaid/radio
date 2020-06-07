@@ -1,21 +1,16 @@
 package dev.dennismcdaid.radio.data.model
 
+import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
+
 data class Program(
-    val name: String = "",
-    val slug: String = "",
-    val presenter: String = "",
-    val description: String? = null,
-    val imageUrl: String? = null,
-    val twitterHandle: String? = null,
-    val facebookId: String? = null,
-    val lastEpisode: Episode? = null,
-    val nextEpisode: Episode? = null,
-    val currentEpisode: Episode? = null
-) {
-
-    val avatarUrl : String? = if (imageUrl?.contains(HTTPS) == true) imageUrl else imageUrl?.replace("http", "https")
-
-    companion object {
-        private const val HTTPS = "https"
-    }
-}
+    val slug: String,
+    val programName: String,
+    val presenter: String,
+    val shortDesc: String,
+    val longDesc: String,
+    val profileImageUrl: String = "",
+    val bannerImageUrl: String = "",
+    val facebook: String = "",
+    val twitter: String = "",
+    val episodes: List<EmitEpisode> = emptyList()
+)

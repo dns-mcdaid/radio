@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dev.dennismcdaid.radio.data.StationRepository
-import dev.dennismcdaid.radio.data.model.Program
+import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -34,7 +33,7 @@ class ProgramListViewModel @Inject constructor(
         }
         .asLiveData(mainContext)
 
-    private fun List<Program>.applyFilter(filter: String): List<Program> {
+    private fun List<EmitProgram>.applyFilter(filter: String): List<EmitProgram> {
         val lowerCase = filter.toLowerCase(Locale.ENGLISH)
         return filter {
             it.name.toLowerCase(Locale.ENGLISH).contains(lowerCase)
@@ -43,8 +42,18 @@ class ProgramListViewModel @Inject constructor(
         }
     }
 
-    fun onProgramClicked(program: Program) {
+    fun onProgramClicked(program: EmitProgram) {
         Timber.d("Selected: $program")
+        Timber.d("Querying details...")
+        viewModelScope.launch {
+            stationRepository.getProgram(program.slug)
+                .catch { e ->
+                    Timber.w(e, "Error collecting details")
+                }
+                .collect {
+                    Timber.d("Found results: $it")
+                }
+        }
     }
 
     fun observeInput(string: String) {

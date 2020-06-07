@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dev.dennismcdaid.radio.data.model.Episode
+import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import dev.dennismcdaid.radio.databinding.ItemShowBinding
 import dev.dennismcdaid.radio.ui.util.diffCallback
 import dev.dennismcdaid.radio.ui.util.loadPresenter
@@ -47,7 +47,7 @@ class ScheduleAdapter : ListAdapter<ScheduleRow, ScheduleAdapter.ViewHolder>(
             }
         }
 
-        private fun Episode.shortTime(): String {
+        private fun EmitEpisode.shortTime(): String {
             return listOf(startTime, endTime).map { DateFormatter.hourAmPm(it) }
                 .reduce { acc, s ->
                     "$acc - $s"

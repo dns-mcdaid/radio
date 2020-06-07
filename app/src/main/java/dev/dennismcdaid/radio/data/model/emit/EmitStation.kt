@@ -1,11 +1,11 @@
-package dev.dennismcdaid.radio.data.model
+package dev.dennismcdaid.radio.data.model.emit
 
-data class Station(
+data class EmitStation(
     val schedule: String = "",
     val name: String = "",
     val slug: String = "",
     val callsign: String = "",
-    val streams: List<Stream> = emptyList(),
+    val streams: List<EmitStream> = emptyList(),
     val timeZone: String = "",
     val frequency: String = "",
     val recordingEnabled: Boolean = false,

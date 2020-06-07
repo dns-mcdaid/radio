@@ -17,7 +17,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", "\"https://api.emit.com/1/stations/\""
+        buildConfigField "String", "EMIT_BASE_URL", "\"https://api.emit.com/1/stations/\""
+        buildConfigField "String", "AIRNET_BASE_URL", "\"https://airnet.org.au/rest/stations/\""
         buildConfigField "String", "STATION", "\"pbs\""
     }
 

@@ -1,6 +1,8 @@
-package dev.dennismcdaid.radio.data.model
+package dev.dennismcdaid.radio.data.model.emit
 
-data class Stream(
+import dev.dennismcdaid.radio.data.model.FormatType
+
+data class EmitStream(
     val description: String = "",
     val format: FormatType = FormatType.UNKNOWN,
     val bitrate: Int = 0,

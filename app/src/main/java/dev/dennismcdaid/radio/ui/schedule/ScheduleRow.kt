@@ -1,6 +1,6 @@
 package dev.dennismcdaid.radio.ui.schedule
 
-import dev.dennismcdaid.radio.data.model.Episode
+import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import org.joda.time.LocalDate
 
 sealed class ScheduleRow : Comparable<ScheduleRow> {
@@ -22,7 +22,7 @@ sealed class ScheduleRow : Comparable<ScheduleRow> {
                 }
             }
     }
-    data class Item(val episode: Episode): ScheduleRow() {
+    data class Item(val episode: EmitEpisode): ScheduleRow() {
         override val date: LocalDate = episode.startTime.toLocalDate()
     }
 }

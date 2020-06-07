@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import dev.dennismcdaid.radio.R
-import dev.dennismcdaid.radio.data.model.Program
+import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import dev.dennismcdaid.radio.databinding.ItemProgramBinding
 import dev.dennismcdaid.radio.ui.util.diffCallback
-import timber.log.Timber
 
-class ProgramListAdapter(private val viewModel: ProgramListViewModel) : ListAdapter<Program, ProgramListAdapter.ViewHolder>(
+class ProgramListAdapter(private val viewModel: ProgramListViewModel) : ListAdapter<EmitProgram, ProgramListAdapter.ViewHolder>(
     diffCallback { oldItem, newItem -> oldItem.name == newItem.name }
 ) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -26,7 +25,7 @@ class ProgramListAdapter(private val viewModel: ProgramListViewModel) : ListAdap
 
     class ViewHolder(private val binding: ItemProgramBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(program: Program, viewModel: ProgramListViewModel) {
+        fun bind(program: EmitProgram, viewModel: ProgramListViewModel) {
             binding.presenterAvatar.load(program.avatarUrl) {
                 crossfade(true)
                 placeholder(R.drawable.ic_sound)

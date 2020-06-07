@@ -2,14 +2,13 @@ package dev.dennismcdaid.radio.ui.main
 
 import androidx.lifecycle.*
 import dev.dennismcdaid.radio.data.StationRepository
-import dev.dennismcdaid.radio.data.model.Program
+import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import dev.dennismcdaid.radio.ui.Event
 import dev.dennismcdaid.radio.ui.StreamAction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -25,7 +24,7 @@ class MainViewModel @Inject constructor(
     val playerState: LiveData<PlayerViewState> = stationRepo.getOnAir()
         .flowOn(Dispatchers.IO)
         .map { it.first().program }
-        .combine<Program, Boolean, PlayerViewState>(playing) { program, playing ->
+        .combine<EmitProgram, Boolean, PlayerViewState>(playing) { program, playing ->
             PlayerViewState.Active(
                 program.name,
                 program.description ?: "",

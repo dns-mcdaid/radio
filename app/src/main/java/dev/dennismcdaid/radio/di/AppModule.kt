@@ -10,6 +10,8 @@ import dagger.Provides
 import dev.dennismcdaid.radio.BuildConfig
 import dev.dennismcdaid.radio.data.model.EpisodeStatus
 import dev.dennismcdaid.radio.data.model.FormatType
+import dev.dennismcdaid.radio.data.model.StationType
+import dev.dennismcdaid.radio.data.source.AirnetApi
 import dev.dennismcdaid.radio.data.source.EmitApi
 import dev.dennismcdaid.radio.util.DateFormatter
 import okhttp3.Cache
@@ -48,9 +50,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    @StationName
-    fun provideStationName(): String {
-        return BuildConfig.STATION
+    fun provideStationType(): StationType {
+        return StationType.PBS
     }
 
     @Provides
@@ -58,10 +59,21 @@ object AppModule {
     fun provideEmitApi(okHttpClient: OkHttpClient, moshi: Moshi): EmitApi {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BuildConfig.EMIT_BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(EmitApi::class.java)
+    }
+    
+    @Provides
+    @Singleton
+    fun provideAirnetApi(okHttpClient: OkHttpClient, moshi: Moshi): AirnetApi {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(BuildConfig.AIRNET_BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(AirnetApi::class.java)
     }
 
     @Provides
