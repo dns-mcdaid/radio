@@ -13,6 +13,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/spacing_medium"
         app:startIconDrawable="@drawable/ic_search"
+        app:boxBackgroundColor="@null"
+        app:startIconTint="@color/gray500"
+        app:endIconTint="@color/gray500"
         app:endIconMode="custom"
         android:layout_width="0dp"
         android:layout_height="wrap_content">

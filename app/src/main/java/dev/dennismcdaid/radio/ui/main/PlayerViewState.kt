@@ -1,6 +1,7 @@
 package dev.dennismcdaid.radio.ui.main
 
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import coil.api.load
 import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.databinding.ViewPlayerBinding
@@ -29,6 +30,8 @@ fun ViewPlayerBinding.bind(state: PlayerViewState) {
         is PlayerViewState.Active -> {
             playButton.isEnabled = true
             val res = if (state.playing) R.drawable.ic_pause else R.drawable.ic_play
+            val dividerColor = if (state.playing) R.color.pbs_red else R.color.gray500
+            divider.setBackgroundColor(ContextCompat.getColor(root.context, dividerColor))
             playButton.setImageResource(res)
             showName.text = state.name
             showDesc.text = state.description

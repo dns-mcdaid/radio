@@ -1,10 +1,8 @@
 package dev.dennismcdaid.radio.ui.main
 
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
@@ -17,13 +15,11 @@ import dev.dennismcdaid.radio.databinding.ActivityMainBinding
 import dev.dennismcdaid.radio.service.AudioPlayerService
 import dev.dennismcdaid.radio.ui.EventObserver
 import dev.dennismcdaid.radio.ui.StreamAction
-import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
 
     @Inject
@@ -37,10 +33,12 @@ class MainActivity : DaggerAppCompatActivity() {
         setContentView(binding.root)
 
         navController = findNavController(R.id.fragment_container)
-
-        // TODO: Setup ActionBar
-
         binding.navigationView.setupWithNavController(navController)
+
+        // Setup Toolbar
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.schedule, R.id.programs))
+        binding.toolbarLayout.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
+
 
         binding.nowPlaying.playButton.setOnClickListener {
             viewModel.onPlayClicked()
@@ -59,7 +57,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
                 }
                 is StreamAction.Start -> {
-                    Timber.d("LAUNCHING")
                     val intent = Intent(this, AudioPlayerService::class.java).apply {
                         putExtra(AudioPlayerService.STREAM_URL_KEY, action.url)
                     }
@@ -68,4 +65,6 @@ class MainActivity : DaggerAppCompatActivity() {
             }
         })
     }
+
+    override fun onSupportNavigateUp() = navController.navigateUp()
 }

@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="8:7"
         android:layout_margin="@dimen/spacing_blue_rare"
-        app:cardCornerRadius="2dp"
+        app:cardCornerRadius="4dp"
         app:cardElevation="2dp"
         android:layout_width="0dp"
         android:layout_height="0dp">
@@ -33,7 +33,7 @@
                 app:layout_constraintDimensionRatio="3:2" />
 
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                style="@style/AppTheme.Subtitle1"
                 android:layout_margin="@dimen/spacing_rare"
                 android:id="@+id/program_name"
                 app:layout_constraintTop_toBottomOf="@id/presenter_avatar"
