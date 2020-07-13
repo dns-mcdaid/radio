@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
+import dev.dennismcdaid.radio.ui.observeEvent
 import javax.inject.Inject
 
 abstract class BaseFragment<T : ViewBinding> : DaggerFragment() {
@@ -29,6 +32,13 @@ abstract class BaseFragment<T : ViewBinding> : DaggerFragment() {
     ): View? {
         _binding = inflateBinding(inflater, container)
         return _binding?.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.snackbarEvent.observeEvent(viewLifecycleOwner) {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+        }
     }
 
     override fun onDestroy() {

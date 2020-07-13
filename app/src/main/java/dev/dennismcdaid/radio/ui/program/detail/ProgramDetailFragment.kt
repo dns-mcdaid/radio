@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.api.load
 import coil.transform.CircleCropTransformation
 import dev.dennismcdaid.radio.R
-import dev.dennismcdaid.radio.data.model.Episode
 import dev.dennismcdaid.radio.databinding.FragmentProgramDetailBinding
 import dev.dennismcdaid.radio.ui.base.BaseFragment
 import dev.dennismcdaid.radio.ui.main.MainActivity
-import dev.dennismcdaid.radio.util.DateFormatter
+import dev.dennismcdaid.radio.ui.observeEvent
 import timber.log.Timber
 
 class ProgramDetailFragment : BaseFragment<FragmentProgramDetailBinding>() {
@@ -34,17 +34,24 @@ class ProgramDetailFragment : BaseFragment<FragmentProgramDetailBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.episodesList.adapter = EpisodeAdapter()
+        binding.episodesList.adapter = EpisodeAdapter(viewModel)
 
         viewModel.viewStateLiveData.observe(viewLifecycleOwner, this::applyViewState)
         viewModel.setSlug(args.slug)
+
+        viewModel.navigateToEpisode.observeEvent(viewLifecycleOwner) {
+            findNavController()
+                .navigate(ProgramDetailFragmentDirections
+                    .actionProgramDetailToEpisode(it)
+                )
+        }
     }
 
     private fun applyViewState(viewState: ProgramDetailViewState) {
         binding.loadingSpinner.isVisible = viewState == ProgramDetailViewState.Loading
 
         when (viewState) {
-            is ProgramDetailViewState.ProgramLoaded -> {
+            is ProgramDetailViewState.Loaded -> {
                 (activity as MainActivity).setTitle(viewState.program.programName)
                 binding.banner.load(viewState.program.bannerImageUrl) {
                     crossfade(true)

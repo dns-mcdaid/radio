@@ -40,5 +40,22 @@
         <argument
             android:name="slug"
             app:argType="string" />
+        <action
+            android:id="@+id/action_program_detail_to_episode"
+            app:destination="@id/episode"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episode"
+        android:label="@string/episode_title"
+        android:name="dev.dennismcdaid.radio.ui.program.episode.EpisodeFragment"
+        tools:layout="@layout/fragment_episode" >
+        <argument
+            android:name="bundle"
+            app:argType="dev.dennismcdaid.radio.ui.program.episode.EpisodeBundle" />
     </fragment>
 </navigation>

@@ -9,6 +9,8 @@
     <string name="stream_audio">Stream Audio</string>
     <string name="program_title">Shows</string>
     <string name="program_episodes">Episodes</string>
+    <string name="episode_title">Episode</string>
+    <string name="episode_tracks">Tracks</string>
 
     <string name="program_search">Find a show</string>
     <string name="program_search_empty">No shows found</string>
@@ -18,6 +20,7 @@
     <string name="saved_title">Saved</string>
     <string name="settings_title">Settings</string>
 
+    <string name="cd_download">Download</string>
     <string name="cd_banner">Banner Image</string>
     <string name="cd_presenter_image">Presenter Image</string>
     <string name="cd_play_button">Play Button</string>

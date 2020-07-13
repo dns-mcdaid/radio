@@ -3,54 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:id="@+id/chevron"
-        android:contentDescription="@string/cd_episode_nav"
-        android:layout_marginEnd="@dimen/gutter"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/ic_chevron_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/episode_date_time"
+        android:id="@+id/track_name"
         android:layout_width="0dp"
-        style="@style/AppTheme.Headline6"
+        style="@style/AppTheme.Subtitle1"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/gutter"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:layout_marginBottom="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium_rare"
+        android:layout_marginBottom="@dimen/spacing_blue_rare"
         android:layout_marginEnd="@dimen/spacing_medium_rare"
-        app:layout_constraintBottom_toTopOf="@id/episode_title"
-        app:layout_constraintEnd_toStartOf="@id/chevron"
+        app:layout_constraintBottom_toTopOf="@id/artist"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Mon Jul 13 2020 at 9:00 AM" />
+        tools:text="Stranger Danger" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/episode_title"
-        android:visibility="gone"
-        tools:visibility="visible"
+        android:id="@+id/artist"
         style="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintTop_toBottomOf="@id/episode_date_time"
+        app:layout_constraintTop_toBottomOf="@id/track_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/chevron"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/gutter"
         android:layout_marginEnd="@dimen/spacing_medium_rare"
-        android:layout_marginBottom="@dimen/spacing_medium"
-        tools:text="Maddy and Kurt chat with Nick from Bananagun and genre / mood hip hop around the country"
+        android:layout_marginBottom="@dimen/spacing_medium_rare"
         android:layout_width="0dp"
+        tools:text="Pinch Points"
         android:layout_height="wrap_content" />
 
     <View
-        android:background="@color/gray600"
+        android:background="@color/gray500"
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintStart_toStartOf="parent"

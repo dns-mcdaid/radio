@@ -1,6 +1,8 @@
 package dev.dennismcdaid.radio.data
 
+import dev.dennismcdaid.radio.data.model.Episode
 import dev.dennismcdaid.radio.data.model.Program
+import dev.dennismcdaid.radio.data.model.airnet.AirnetTrack
 import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import dev.dennismcdaid.radio.data.model.emit.EmitStation
@@ -17,5 +19,5 @@ interface StationRepository {
 
     fun getProgram(slug: String): Flow<Program>
 
-    fun getEpisode(programName: String, timestamp: String): Flow<EmitEpisode>
+    fun getTracks(playlistUrl: String): Flow<List<AirnetTrack>>
 }

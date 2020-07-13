@@ -1,15 +1,16 @@
 package dev.dennismcdaid.radio.data.source
 
 import dev.dennismcdaid.radio.data.StationRepository
+import dev.dennismcdaid.radio.data.model.Episode
 import dev.dennismcdaid.radio.data.model.Program
 import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import dev.dennismcdaid.radio.data.model.emit.EmitStation
 import dev.dennismcdaid.radio.data.model.StationType
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
+import dev.dennismcdaid.radio.data.model.airnet.AirnetEpisode
+import dev.dennismcdaid.radio.data.model.airnet.AirnetTrack
+import kotlinx.coroutines.flow.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class ConcreteStationRepository @Inject constructor(
@@ -50,8 +51,11 @@ class ConcreteStationRepository @Inject constructor(
         val airnetProgram = flow {
             emit(airnetApi.getProgram(stationType.airnetCallSign, slug))
         }
-        return flow { emit(emitApi.getEpisodes(stationType.emitCallSign, slug)) }
+        return flow { emit(airnetApi.getEpisodes(stationType.airnetCallSign, slug)) }
             .catch { emit(emptyList()) }
+            .map { episodes ->
+                episodes.map(this::mapEpisode)
+            }
             .combine(airnetProgram) { episodes, program ->
                 Program(
                     program.slug,
@@ -68,8 +72,23 @@ class ConcreteStationRepository @Inject constructor(
             }
     }
 
-    override fun getEpisode(programName: String, timestamp: String): Flow<EmitEpisode> {
-        TODO("Not yet implemented")
+    override fun getTracks(playlistUrl: String): Flow<List<AirnetTrack>> {
+        return flow {
+            emit(airnetApi.getEpisodePlaylist(playlistUrl))
+        }
+    }
+
+    private fun mapEpisode(airnetEpisode: AirnetEpisode): Episode {
+        return Episode(
+            title = airnetEpisode.title ?: "",
+            startTime = airnetEpisode.startTime,
+            endTime = airnetEpisode.endTime,
+            timestamp = airnetEpisode.timestamp,
+            totalDuration = airnetEpisode.duration,
+            imageUrl = airnetEpisode.imageUrl,
+            description = airnetEpisode.description,
+            playlistUrl = airnetEpisode.playlistUrl
+        )
     }
 
 }

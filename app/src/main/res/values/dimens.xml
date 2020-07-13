@@ -12,6 +12,7 @@
     <dimen name="presenter_avatar_large">128dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <dimen name="circle_button">32dp</dimen>
     <dimen name="gutter">24dp</dimen>
     <dimen name="progress_size">48dp</dimen>
     <dimen name="bottom_fab_space">96dp</dimen>

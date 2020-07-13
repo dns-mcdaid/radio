@@ -2,7 +2,6 @@ package dev.dennismcdaid.radio.util
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
-import okhttp3.internal.format
 import org.joda.time.LocalDateTime
 import org.joda.time.LocalTime
 import org.joda.time.format.DateTimeFormat
@@ -15,7 +14,7 @@ object DateFormatter {
 
     private const val HMS = "HH:mm:ss"
 
-    private const val CLEAN_EPISODE = "EEE MMM dd yyyy"
+    private const val TEXT_DATE = "EEE MMM dd yyyy"
 
     fun localDateTime(dateStr: String): LocalDateTime {
         val formatter = DateTimeFormat.forPattern(ISO_8601)
@@ -37,8 +36,12 @@ object DateFormatter {
         return formatter.print(time)
     }
 
-    fun episode(localDateTime: LocalDateTime): String {
-        val date = DateTimeFormat.forPattern(CLEAN_EPISODE).print(localDateTime)
+    fun episodeDate(localDateTime: LocalDateTime): String {
+        return DateTimeFormat.forPattern(TEXT_DATE).print(localDateTime)
+    }
+
+    fun episodeDateTime(localDateTime: LocalDateTime): String {
+        val date = DateTimeFormat.forPattern(TEXT_DATE).print(localDateTime)
         val time = DateTimeFormat.forPattern(AM_PM_FORMAT).print(localDateTime)
         return "$date at $time"
     }

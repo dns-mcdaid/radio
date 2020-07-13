@@ -1,7 +1,5 @@
 package dev.dennismcdaid.radio.data.model
 
-import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
-
 data class Program(
     val slug: String,
     val programName: String,
@@ -12,5 +10,5 @@ data class Program(
     val bannerImageUrl: String = "",
     val facebook: String = "",
     val twitter: String = "",
-    val episodes: List<EmitEpisode> = emptyList()
+    val episodes: List<Episode> = emptyList()
 )
