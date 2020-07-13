@@ -17,7 +17,5 @@ interface StationRepository {
 
     fun getProgram(slug: String): Flow<Program>
 
-    fun getEpisodes(programName: String): Flow<List<EmitEpisode>>
-
     fun getEpisode(programName: String, timestamp: String): Flow<EmitEpisode>
 }

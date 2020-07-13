@@ -1,6 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/banner"
+            android:scaleType="centerCrop"
+            android:background="@color/pbs_black"
+            android:contentDescription="@string/cd_banner"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="16:7"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/presenter_avatar_container"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/banner"
+            app:layout_constraintBottom_toBottomOf="@id/banner"
+            android:layout_marginEnd="@dimen/spacing_medium_well"
+            android:background="@drawable/ic_circle"
+            android:elevation="10dp"
+            android:padding="@dimen/spacing_blue_rare"
+            android:layout_width="@dimen/presenter_avatar_large"
+            android:layout_height="@dimen/presenter_avatar_large">
+            <ImageView
+                android:id="@+id/presenter_avatar"
+                android:contentDescription="@string/cd_presenter_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:background="@color/pbs_red"
+            app:layout_constraintStart_toStartOf="@id/presenter_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/presenter_text"
+            app:layout_constraintBottom_toBottomOf="@id/presenter_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/presenter_text"
+            app:layout_constraintTop_toBottomOf="@id/banner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/presenter_avatar_container"
+            tools:text="with\nDennis McDaid"
+            android:lineSpacingExtra="2sp"
+            android:textColor="@color/gray100"
+            android:paddingTop="@dimen/spacing_blue_rare"
+            android:paddingStart="@dimen/gutter"
+            android:paddingEnd="@dimen/spacing_rare"
+            android:paddingBottom="@dimen/spacing_blue_rare"
+            android:minLines="2"
+            style="@style/AppTheme.Headline5"
+            app:fontFamily="@font/open_sans_semibold_italic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textview.MaterialTextView
+            app:layout_constraintTop_toBottomOf="@id/presenter_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_margin="@dimen/gutter"
+            android:lineSpacingExtra="2sp"
+            android:textIsSelectable="true"
+            tools:text="blah blah blah blah blah blah blah blah blah blah blah blah blah blah blhab"
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/episodes_header"
+            style="@style/AppTheme.Headline5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/gutter"
+            android:text="@string/program_episodes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/episodes_list"
+            android:layout_marginTop="@dimen/spacing_medium_rare"
+            app:layout_constraintTop_toBottomOf="@id/episodes_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_episode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/loading_spinner"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="@dimen/progress_size"
+            android:layout_height="@dimen/progress_size" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

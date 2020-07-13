@@ -4,12 +4,16 @@
     <dimen name="spacing_rare">8dp</dimen>
     <dimen name="spacing_medium_rare">12dp</dimen>
     <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_medium_well">24dp</dimen>
     <dimen name="spacing_well">32dp</dimen>
     <dimen name="spacing_burnt">48dp</dimen>
     <dimen name="spacing_charred">64dp</dimen>
     <dimen name="presenter_avatar">80dp</dimen>
+    <dimen name="presenter_avatar_large">128dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <dimen name="gutter">24dp</dimen>
+    <dimen name="progress_size">48dp</dimen>
     <dimen name="bottom_fab_space">96dp</dimen>
     <dimen name="fab_space">32dp</dimen>
 </resources>

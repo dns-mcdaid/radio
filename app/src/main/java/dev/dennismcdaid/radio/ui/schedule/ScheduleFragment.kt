@@ -9,43 +9,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import dagger.android.support.DaggerFragment
 import dev.dennismcdaid.radio.databinding.FragmentScheduleBinding
+import dev.dennismcdaid.radio.ui.base.BaseFragment
 import javax.inject.Inject
 
-class ScheduleFragment : DaggerFragment() {
+class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
+    override val viewModel by viewModels<ScheduleViewModel> { viewModelFactory }
 
-    companion object {
-        fun newInstance() = ScheduleFragment()
-        const val TAG = "schedule_fragment"
-    }
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel by viewModels<ScheduleViewModel> { viewModelFactory }
-
-    private var binding: FragmentScheduleBinding? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentScheduleBinding.inflate(inflater, container, false)
-        return binding?.root
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentScheduleBinding {
+        return FragmentScheduleBinding.inflate(inflater, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         val adapter = ScheduleAdapter()
-        binding?.scheduleList?.adapter = adapter
+        binding.scheduleList.adapter = adapter
 
         viewModel.schedule.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }
-
-    override fun onDestroyView() {
-        binding = null
-        super.onDestroyView()
-    }
-
 }

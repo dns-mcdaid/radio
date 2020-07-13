@@ -8,11 +8,37 @@
         android:id="@+id/schedule"
         android:name="dev.dennismcdaid.radio.ui.schedule.ScheduleFragment"
         android:label="@string/schedule_title"
-        tools:layout="@layout/fragment_schedule" />
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_schedule_to_program_detail"
+            app:destination="@id/program_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/programs"
         android:name="dev.dennismcdaid.radio.ui.program.ProgramListFragment"
         android:label="@string/program_title"
-        tools:layout="@layout/fragment_program_list" />
+        tools:layout="@layout/fragment_program_list" >
+        <action
+            android:id="@+id/action_programs_to_program_detail"
+            app:destination="@id/program_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/program_detail"
+        android:label="@string/schedule_title"
+        android:name="dev.dennismcdaid.radio.ui.program.detail.ProgramDetailFragment"
+        tools:layout="@layout/fragment_program_detail" >
+        <argument
+            android:name="slug"
+            app:argType="string" />
+    </fragment>
 </navigation>

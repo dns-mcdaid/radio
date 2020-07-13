@@ -38,7 +38,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 tools:src="@drawable/ic_account"
-                android:contentDescription="@string/cd_presenter_icon"
+                android:contentDescription="@string/cd_presenter_image"
                 android:id="@+id/presenter_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +47,7 @@
                 android:layout_height="@dimen/presenter_avatar" />
 
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.MaterialComponents.Headline5"
+                style="@style/AppTheme.Headline5"
                 app:layout_constraintEnd_toStartOf="@id/presenter_avatar"
                 android:id="@+id/title"
                 tools:text="Underground Love"
@@ -70,7 +70,7 @@
             <com.google.android.material.textview.MaterialTextView
                 app:layout_constraintTop_toBottomOf="@id/description"
                 android:layout_marginTop="@dimen/spacing_rare"
-                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                style="@style/AppTheme.Subtitle2"
                 android:id="@+id/presenter_name"
                 app:layout_constraintEnd_toStartOf="@id/presenter_avatar"
                 app:layout_constraintStart_toStartOf="parent"

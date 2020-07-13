@@ -9,12 +9,16 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import dagger.android.support.DaggerAppCompatActivity
 import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.databinding.ActivityMainBinding
 import dev.dennismcdaid.radio.service.AudioPlayerService
 import dev.dennismcdaid.radio.ui.EventObserver
 import dev.dennismcdaid.radio.ui.StreamAction
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -66,5 +70,12 @@ class MainActivity : DaggerAppCompatActivity() {
         })
     }
 
-    override fun onSupportNavigateUp() = navController.navigateUp()
+    fun setTitle(title: String) {
+        binding.toolbarLayout.title = title
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        Timber.d("Doing the thing")
+        return navController.navigateUp()
+    }
 }

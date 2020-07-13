@@ -16,7 +16,7 @@
         android:layout_height="1dp" />
 
     <ImageView
-        android:contentDescription="@string/cd_presenter_icon"
+        android:contentDescription="@string/cd_presenter_image"
         tools:src="@drawable/ic_account"
         android:layout_width="0dp"
         app:layout_constraintDimensionRatio="1:1"
@@ -28,21 +28,21 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        app:layout_constraintStart_toEndOf="@id/presenter_avatar"
-        app:layout_constraintEnd_toStartOf="@id/play_button"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/show_name"
         style="@style/AppTheme.Headline6"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@id/show_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_rare"
         android:layout_marginEnd="@dimen/spacing_rare"
         android:layout_marginBottom="@dimen/spacing_blue_rare"
-        android:singleLine="true"
         android:ellipsize="marquee"
-        android:id="@+id/show_name"
-        tools:text="Underground Love"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" />
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/show_desc"
+        app:layout_constraintEnd_toStartOf="@id/play_button"
+        app:layout_constraintStart_toEndOf="@id/presenter_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Underground Love" />
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/AppTheme.Subtitle1"

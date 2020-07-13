@@ -4,15 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dev.dennismcdaid.radio.data.StationRepository
+import dev.dennismcdaid.radio.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ScheduleViewModel @Inject constructor(
-    private val stationRepo: StationRepository
-) : ViewModel() {
-
-    private val mainContext = Dispatchers.Default + viewModelScope.coroutineContext
+    stationRepo: StationRepository
+) : BaseViewModel() {
 
     val schedule = stationRepo.getSchedule()
         .map { episodes ->

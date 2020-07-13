@@ -1,26 +1,31 @@
 package dev.dennismcdaid.radio.ui.program
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import dev.dennismcdaid.radio.data.StationRepository
 import dev.dennismcdaid.radio.data.model.emit.EmitProgram
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import dev.dennismcdaid.radio.ui.asLiveEvent
+import dev.dennismcdaid.radio.ui.base.BaseViewModel
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 class ProgramListViewModel @Inject constructor(
-    private val stationRepository: StationRepository
-) : ViewModel() {
-
-    private val mainContext = Dispatchers.Default + viewModelScope.coroutineContext
+    stationRepository: StationRepository
+) : BaseViewModel() {
 
     private val searchFilter = MutableStateFlow("")
 
     val showClear = searchFilter.map { it.isNotEmpty() }.asLiveData(mainContext)
+
+    private val navigationChannel = BroadcastChannel<String>(1)
+
+    val navigateToProgram = navigationChannel.asLiveEvent(mainContext)
 
     val shows = stationRepository.getShows()
         .map { programs ->
@@ -43,17 +48,7 @@ class ProgramListViewModel @Inject constructor(
     }
 
     fun onProgramClicked(program: EmitProgram) {
-        Timber.d("Selected: $program")
-        Timber.d("Querying details...")
-        viewModelScope.launch {
-            stationRepository.getProgram(program.slug)
-                .catch { e ->
-                    Timber.w(e, "Error collecting details")
-                }
-                .collect {
-                    Timber.d("Found results: $it")
-                }
-        }
+        navigationChannel.offer(program.slug)
     }
 
     fun observeInput(string: String) {

@@ -2,7 +2,9 @@ package dev.dennismcdaid.radio.util
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
+import okhttp3.internal.format
 import org.joda.time.LocalDateTime
+import org.joda.time.LocalTime
 import org.joda.time.format.DateTimeFormat
 
 object DateFormatter {
@@ -10,6 +12,10 @@ object DateFormatter {
     private const val AM_PM_FORMAT = "hh:mm a"
 
     private const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+    private const val HMS = "HH:mm:ss"
+
+    private const val CLEAN_EPISODE = "EEE MMM dd yyyy"
 
     fun localDateTime(dateStr: String): LocalDateTime {
         val formatter = DateTimeFormat.forPattern(ISO_8601)
@@ -21,7 +27,23 @@ object DateFormatter {
         return formatter.print(time)
     }
 
-    object Adapter {
+    fun localTime(string: String): LocalTime {
+        val formatter = DateTimeFormat.forPattern(HMS)
+        return formatter.parseLocalTime(string)
+    }
+
+    fun hourAmPm(time: LocalTime): String {
+        val formatter = DateTimeFormat.forPattern(AM_PM_FORMAT)
+        return formatter.print(time)
+    }
+
+    fun episode(localDateTime: LocalDateTime): String {
+        val date = DateTimeFormat.forPattern(CLEAN_EPISODE).print(localDateTime)
+        val time = DateTimeFormat.forPattern(AM_PM_FORMAT).print(localDateTime)
+        return "$date at $time"
+    }
+
+    object LocalDateTimeAdapter {
         @FromJson
         fun fromJson(string: String): LocalDateTime {
             return localDateTime(string)
@@ -31,6 +53,19 @@ object DateFormatter {
         fun toJson(dateTime: LocalDateTime): String {
             val formatter = DateTimeFormat.forPattern(ISO_8601)
             return formatter.print(dateTime)
+        }
+    }
+
+    object LocalTimeAdapter {
+        @FromJson
+        fun fromJson(string: String): LocalTime {
+            return localTime(string)
+        }
+
+        @ToJson
+        fun toJson(localTime: LocalTime): String {
+            val formatter = DateTimeFormat.forPattern(HMS)
+            return formatter.print(localTime)
         }
     }
 }

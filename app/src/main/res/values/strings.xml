@@ -8,10 +8,18 @@
     <string name="now_playing">Now Playing</string>
     <string name="stream_audio">Stream Audio</string>
     <string name="program_title">Shows</string>
+    <string name="program_episodes">Episodes</string>
 
     <string name="program_search">Find a show</string>
     <string name="program_search_empty">No shows found</string>
 
-    <string name="cd_presenter_icon">Presenter Icon</string>
+    <string name="presenter_with">with\n%1$s</string>
+
+    <string name="saved_title">Saved</string>
+    <string name="settings_title">Settings</string>
+
+    <string name="cd_banner">Banner Image</string>
+    <string name="cd_presenter_image">Presenter Image</string>
     <string name="cd_play_button">Play Button</string>
+    <string name="cd_episode_nav">Go to Episode</string>
 </resources>

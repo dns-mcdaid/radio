@@ -43,7 +43,8 @@ object AppModule {
         return Moshi.Builder()
             .add(FormatType.Adapter)
             .add(EpisodeStatus.Adapter)
-            .add(DateFormatter.Adapter)
+            .add(DateFormatter.LocalDateTimeAdapter)
+            .add(DateFormatter.LocalTimeAdapter)
             .add(KotlinJsonAdapterFactory())
             .build()
     }

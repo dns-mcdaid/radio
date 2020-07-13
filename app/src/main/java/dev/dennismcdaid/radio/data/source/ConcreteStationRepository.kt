@@ -58,7 +58,7 @@ class ConcreteStationRepository @Inject constructor(
                     program.name,
                     program.broadcasters,
                     program.gridDescription,
-                    program.description,
+                    program.description ?: program.gridDescription,
                     program.profileImageUrl,
                     program.bannerImageUrl,
                     program.facebookPage ?: "",
@@ -66,10 +66,6 @@ class ConcreteStationRepository @Inject constructor(
                     episodes
                 )
             }
-    }
-
-    override fun getEpisodes(programName: String): Flow<List<EmitEpisode>> {
-        TODO("Not yet implemented")
     }
 
     override fun getEpisode(programName: String, timestamp: String): Flow<EmitEpisode> {
