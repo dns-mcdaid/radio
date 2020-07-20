@@ -11,6 +11,7 @@ sealed class PlayerViewState {
 
     data class Active(
         val name: String,
+        val presenter: String,
         val description: String,
         val image: String,
         val playing: Boolean

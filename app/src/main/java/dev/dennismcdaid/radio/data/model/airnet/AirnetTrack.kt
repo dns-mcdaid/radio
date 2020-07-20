@@ -6,7 +6,7 @@ data class AirnetTrack(
     val type: String,
     val id: Long,
     val artist: String,
-    val title: String,
+    val title: String?,
     val track: String,
     val release: String?,
     val time: LocalTime?,

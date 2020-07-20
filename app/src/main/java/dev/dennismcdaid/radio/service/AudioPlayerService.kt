@@ -21,7 +21,6 @@ import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import okhttp3.*
-import okhttp3.internal.readBomAsCharset
 import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
@@ -61,7 +60,6 @@ class AudioPlayerService : DaggerService() {
                     }
                     .map { it.asHttps() }
                     .collect {
-                        Timber.d("SETTING $it")
                         player.setDataSource(applicationContext, it.toUri())
                         player.isLooping = true
                         player.prepareAsync()

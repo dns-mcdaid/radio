@@ -20,8 +20,10 @@ class MainViewModel @Inject constructor(
     private val playing = MutableStateFlow(false)
     private val streamSource = MutableStateFlow<StreamSource>(StreamSource.Live)
 
+    val playerStream = streamSource.asLiveData(mainContext)
+
     private val program = streamSource.flatMapLatest { source ->
-        when (source) {
+        return@flatMapLatest when (source) {
             StreamSource.Live -> stationRepo.getOnAir()
                 .flowOn(Dispatchers.IO)
                 .map { it.first().program }
@@ -33,6 +35,7 @@ class MainViewModel @Inject constructor(
         .combine<EmitProgram, Boolean, PlayerViewState>(playing) { program, playing ->
             PlayerViewState.Active(
                 program.name,
+                program.presenter,
                 program.description ?: "",
                 program.imageUrl ?: "",
                 playing
@@ -65,6 +68,13 @@ class MainViewModel @Inject constructor(
                 }
             is StreamSource.Episode -> flowOf(streamSource.episode.audioUrl!!)
         }
+    }
+
+    fun goLive() {
+        if (streamSource.value == StreamSource.Live && playing.value) return
+        streamSource.value = StreamSource.Live
+        playing.value = false
+        onPlayClicked()
     }
 
     fun onPlayClicked() {

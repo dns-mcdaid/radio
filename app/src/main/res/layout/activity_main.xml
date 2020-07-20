@@ -41,6 +41,7 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroller"
             app:layout_anchor="@id/appbar_layout"
             app:layout_anchorGravity="bottom"
             android:layout_width="match_parent"

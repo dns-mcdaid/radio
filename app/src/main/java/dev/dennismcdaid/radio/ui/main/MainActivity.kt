@@ -2,13 +2,17 @@ package dev.dennismcdaid.radio.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -69,12 +73,21 @@ class MainActivity : DaggerAppCompatActivity() {
         })
 
         binding.nowPlaying.root.setOnClickListener {
-            Timber.d("Clicked!")
+            navController.navigate(R.id.action_go_to_now_playing)
         }
     }
 
     fun setTitle(title: String) {
         binding.toolbarLayout.title = title
+    }
+
+    fun toggleHeaderAndFooter(show: Boolean) {
+        binding.appbarLayout.setExpanded(show, true)
+        binding.appbarLayout.isVisible = show
+        (binding.scroller.layoutParams as CoordinatorLayout.LayoutParams).behavior = if (show) AppBarLayout.ScrollingViewBehavior() else null
+        binding.scroller.requestLayout()
+        binding.nowPlaying.root.isVisible = show
+        binding.navigationView.isVisible = show
     }
 
     override fun onSupportNavigateUp(): Boolean {

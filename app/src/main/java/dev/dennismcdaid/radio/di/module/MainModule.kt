@@ -9,6 +9,8 @@ import dev.dennismcdaid.radio.di.ViewModelBuilder
 import dev.dennismcdaid.radio.di.ViewModelKey
 import dev.dennismcdaid.radio.ui.main.MainActivity
 import dev.dennismcdaid.radio.ui.main.MainViewModel
+import dev.dennismcdaid.radio.ui.nowplaying.NowPlayingFragment
+import dev.dennismcdaid.radio.ui.nowplaying.NowPlayingViewModel
 
 @Module
 abstract class MainModule {
@@ -20,4 +22,12 @@ abstract class MainModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+
+    @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
+    internal abstract fun nowPlayingFragment(): NowPlayingFragment
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NowPlayingViewModel::class)
+    abstract fun bindNowPlayingViewModel(viewModel: NowPlayingViewModel): ViewModel
 }

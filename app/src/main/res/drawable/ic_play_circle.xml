@@ -3,6 +3,6 @@
     android:width="32dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#00000000"
         android:pathData="M16,16m-15.5,0a15.5,15.5 0,1 1,31 0a15.5,15.5 0,1 1,-31 0"
-        android:strokeColor="#f7fafc" android:strokeWidth="1"/>
-    <path android:fillColor="#f7fafc" android:pathData="M12,9V23L23,16L12,9Z"/>
+        android:strokeColor="#231f20" android:strokeWidth="1"/>
+    <path android:fillColor="#231f20" android:pathData="M12,9V23L23,16L12,9Z"/>
 </vector>

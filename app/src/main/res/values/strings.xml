@@ -20,9 +20,13 @@
     <string name="saved_title">Saved</string>
     <string name="settings_title">Settings</string>
 
+    <string name="go_live">Go Live</string>
+    <string name="on_air">ON AIR</string>
+
     <string name="cd_download">Download</string>
     <string name="cd_banner">Banner Image</string>
     <string name="cd_presenter_image">Presenter Image</string>
     <string name="cd_play_button">Play Button</string>
     <string name="cd_episode_nav">Go to Episode</string>
+    <string name="cd_close">Close</string>
 </resources>
