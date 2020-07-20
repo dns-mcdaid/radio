@@ -32,7 +32,7 @@ interface EmitApi {
         @Path(PROGRAM) programName: String
     ) : List<EmitEpisode>
 
-    @GET("{$STATION}/shows/{$PROGRAM}/$TIMESTAMP")
+    @GET("{$STATION}/shows/{$PROGRAM}/episodes/{$TIMESTAMP}")
     suspend fun getEpisode(
         @Path(STATION)stationName: String,
         @Path(PROGRAM) programName: String,

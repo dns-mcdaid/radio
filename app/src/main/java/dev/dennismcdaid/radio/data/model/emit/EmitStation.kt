@@ -5,7 +5,7 @@ data class EmitStation(
     val name: String = "",
     val slug: String = "",
     val callsign: String = "",
-    val streams: List<EmitStream> = emptyList(),
+    val streams: List<StationStream> = emptyList(),
     val timeZone: String = "",
     val frequency: String = "",
     val recordingEnabled: Boolean = false,

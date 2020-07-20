@@ -1,7 +1,7 @@
 package dev.dennismcdaid.radio.data.model.airnet
 
 data class AirnetProgram(
-    val bannerImageUrl: String = "",
+    val bannerImageUrl: String? = null,
     val broadcasters: String = "",
     val description: String? = "",
     val episodesRestUrl: String = "",

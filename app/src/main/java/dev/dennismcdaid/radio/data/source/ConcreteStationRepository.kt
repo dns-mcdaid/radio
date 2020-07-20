@@ -3,14 +3,15 @@ package dev.dennismcdaid.radio.data.source
 import dev.dennismcdaid.radio.data.StationRepository
 import dev.dennismcdaid.radio.data.model.Episode
 import dev.dennismcdaid.radio.data.model.Program
-import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
-import dev.dennismcdaid.radio.data.model.emit.EmitProgram
-import dev.dennismcdaid.radio.data.model.emit.EmitStation
 import dev.dennismcdaid.radio.data.model.StationType
 import dev.dennismcdaid.radio.data.model.airnet.AirnetEpisode
 import dev.dennismcdaid.radio.data.model.airnet.AirnetTrack
+import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
+import dev.dennismcdaid.radio.data.model.emit.EmitProgram
+import dev.dennismcdaid.radio.data.model.emit.EmitStation
+import dev.dennismcdaid.radio.util.DateFormatter
 import kotlinx.coroutines.flow.*
-import timber.log.Timber
+import org.joda.time.LocalDateTime
 import javax.inject.Inject
 
 class ConcreteStationRepository @Inject constructor(
@@ -64,7 +65,7 @@ class ConcreteStationRepository @Inject constructor(
                     program.gridDescription,
                     program.description ?: program.gridDescription,
                     program.profileImageUrl,
-                    program.bannerImageUrl,
+                    program.bannerImageUrl ?: "https://amrap-pages-image.s3.amazonaws.com/banner/6878.jpg?cacbeb=8577515",
                     program.facebookPage ?: "",
                     program.twitterHandle ?: "",
                     episodes
@@ -75,6 +76,13 @@ class ConcreteStationRepository @Inject constructor(
     override fun getTracks(playlistUrl: String): Flow<List<AirnetTrack>> {
         return flow {
             emit(airnetApi.getEpisodePlaylist(playlistUrl))
+        }
+    }
+
+    override fun getEpisode(programSlug: String, airDateTime: LocalDateTime): Flow<EmitEpisode> {
+        return flow {
+            val pathFormatted = DateFormatter.episodeDownloadPath(airDateTime)
+            emit(emitApi.getEpisode(stationType.emitCallSign, programSlug, pathFormatted))
         }
     }
 

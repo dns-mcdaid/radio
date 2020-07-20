@@ -1,12 +1,12 @@
 package dev.dennismcdaid.radio.data
 
-import dev.dennismcdaid.radio.data.model.Episode
 import dev.dennismcdaid.radio.data.model.Program
 import dev.dennismcdaid.radio.data.model.airnet.AirnetTrack
 import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import dev.dennismcdaid.radio.data.model.emit.EmitStation
 import kotlinx.coroutines.flow.Flow
+import org.joda.time.LocalDateTime
 
 interface StationRepository {
     fun getStation(): Flow<EmitStation>
@@ -20,4 +20,6 @@ interface StationRepository {
     fun getProgram(slug: String): Flow<Program>
 
     fun getTracks(playlistUrl: String): Flow<List<AirnetTrack>>
+
+    fun getEpisode(programSlug: String, airDateTime: LocalDateTime): Flow<EmitEpisode>
 }

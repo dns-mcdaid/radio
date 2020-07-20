@@ -10,10 +10,13 @@ import androidx.navigation.fragment.navArgs
 import dev.dennismcdaid.radio.databinding.FragmentEpisodeBinding
 import dev.dennismcdaid.radio.ui.base.BaseFragment
 import dev.dennismcdaid.radio.ui.main.MainActivity
+import dev.dennismcdaid.radio.ui.observeEvent
 
 class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
     override val viewModel by viewModels<EpisodeViewModel> { viewModelFactory }
     private val args by navArgs<EpisodeFragmentArgs>()
+
+
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -34,5 +37,13 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
             adapter.submitList(it.tracks)
         }
         viewModel.loadEpisode(args.bundle)
+
+        binding.playButton.setOnClickListener {
+            viewModel.playEpisode(args.bundle)
+        }
+
+        viewModel.playEpisodeEvent.observeEvent(viewLifecycleOwner) {
+            (activity as MainActivity).viewModel.playEpisode(it)
+        }
     }
 }

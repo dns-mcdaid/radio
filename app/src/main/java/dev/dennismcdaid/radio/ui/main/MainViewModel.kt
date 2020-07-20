@@ -2,9 +2,11 @@ package dev.dennismcdaid.radio.ui.main
 
 import androidx.lifecycle.*
 import dev.dennismcdaid.radio.data.StationRepository
+import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import dev.dennismcdaid.radio.ui.Event
 import dev.dennismcdaid.radio.ui.StreamAction
+import dev.dennismcdaid.radio.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.*
@@ -13,17 +15,21 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val stationRepo: StationRepository
-) : ViewModel() {
-
-    private val mainContext = Dispatchers.Default + viewModelScope.coroutineContext
+) : BaseViewModel() {
 
     private val playing = MutableStateFlow(false)
+    private val streamSource = MutableStateFlow<StreamSource>(StreamSource.Live)
 
-    val toggleStream = MutableStateFlow(false)
+    private val program = streamSource.flatMapLatest { source ->
+        when (source) {
+            StreamSource.Live -> stationRepo.getOnAir()
+                .flowOn(Dispatchers.IO)
+                .map { it.first().program }
+            is StreamSource.Episode -> flowOf(source.episode.program)
+        }
+    }
 
-    val playerState: LiveData<PlayerViewState> = stationRepo.getOnAir()
-        .flowOn(Dispatchers.IO)
-        .map { it.first().program }
+    val playerState: LiveData<PlayerViewState> = program
         .combine<EmitProgram, Boolean, PlayerViewState>(playing) { program, playing ->
             PlayerViewState.Active(
                 program.name,
@@ -49,6 +55,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun getPlaybackUrl(streamSource: StreamSource): Flow<String> {
+        return when (streamSource) {
+            StreamSource.Live -> stationRepo.getStation()
+                .flowOn(Dispatchers.IO)
+                .map { station ->
+                    station.streams.maxBy { it.format }?.url
+                        ?: throw IllegalStateException("No stream found")
+                }
+            is StreamSource.Episode -> flowOf(streamSource.episode.audioUrl!!)
+        }
+    }
+
     fun onPlayClicked() {
         playing.value = !playing.value
         if (!playing.value) {
@@ -56,12 +74,7 @@ class MainViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
-            stationRepo.getStation()
-                .flowOn(Dispatchers.IO)
-                .map { station ->
-                    station.streams.maxBy { it.format }?.url
-                        ?: throw IllegalStateException("No stream found")
-                }
+            getPlaybackUrl(streamSource.value)
                 .map<String, StreamAction> {
                     StreamAction.Start(it)
                 }
@@ -70,5 +83,12 @@ class MainViewModel @Inject constructor(
                 }
                 .collect { actionChannel.offer(it) }
         }
+    }
+
+    fun playEpisode(episode: EmitEpisode) {
+        streamSource.value = StreamSource.Episode(episode)
+        // TODO: Not this
+        playing.value = false
+        onPlayClicked()
     }
 }

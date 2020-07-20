@@ -1,5 +1,7 @@
 package dev.dennismcdaid.radio.data.model.emit
 
+import dev.dennismcdaid.radio.util.asHttps
+
 data class EmitProgram(
     val name: String = "",
     val slug: String = "",
@@ -12,10 +14,5 @@ data class EmitProgram(
     val nextEpisode: EmitEpisode? = null,
     val currentEpisode: EmitEpisode? = null
 ) {
-
-    val avatarUrl : String? = if (imageUrl?.contains(HTTPS) == true) imageUrl else imageUrl?.replace("http", "https")
-
-    companion object {
-        private const val HTTPS = "https"
-    }
+    val avatarUrl : String? = imageUrl?.asHttps()
 }

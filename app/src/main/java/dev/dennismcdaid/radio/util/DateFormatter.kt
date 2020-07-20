@@ -16,6 +16,8 @@ object DateFormatter {
 
     private const val TEXT_DATE = "EEE MMM dd yyyy"
 
+    private const val DOWNLOAD_FORMAT = "YYYYMMddHHmm"
+
     fun localDateTime(dateStr: String): LocalDateTime {
         val formatter = DateTimeFormat.forPattern(ISO_8601)
         return formatter.parseLocalDateTime(dateStr)
@@ -38,6 +40,10 @@ object DateFormatter {
 
     fun episodeDate(localDateTime: LocalDateTime): String {
         return DateTimeFormat.forPattern(TEXT_DATE).print(localDateTime)
+    }
+
+    fun episodeDownloadPath(localDateTime: LocalDateTime): String {
+        return DateTimeFormat.forPattern(DOWNLOAD_FORMAT).print(localDateTime)
     }
 
     fun episodeDateTime(localDateTime: LocalDateTime): String {

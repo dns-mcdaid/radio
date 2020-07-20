@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import coil.api.load
 import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.databinding.ViewPlayerBinding
+import timber.log.Timber
 
 sealed class PlayerViewState {
 
@@ -36,7 +37,6 @@ fun ViewPlayerBinding.bind(state: PlayerViewState) {
             showName.text = state.name
             showDesc.text = state.description
             presenterAvatar.load(state.image) {
-                crossfade(true)
                 placeholder(R.drawable.ic_account)
                 error(R.drawable.ic_account)
             }

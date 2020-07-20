@@ -2,7 +2,7 @@ package dev.dennismcdaid.radio.data.model.emit
 
 import dev.dennismcdaid.radio.data.model.FormatType
 
-data class EmitStream(
+data class StationStream(
     val description: String = "",
     val format: FormatType = FormatType.UNKNOWN,
     val bitrate: Int = 0,

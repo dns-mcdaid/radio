@@ -6,6 +6,7 @@ import org.joda.time.LocalDateTime
 
 @Parcelize
 data class EpisodeBundle(
+    val slug: String,
     val programName: String,
     val presenter: String,
     val airDate: LocalDateTime,

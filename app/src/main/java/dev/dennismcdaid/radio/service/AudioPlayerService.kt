@@ -14,12 +14,26 @@ import androidx.core.net.toUri
 import dagger.android.DaggerService
 import dev.dennismcdaid.radio.R
 import dev.dennismcdaid.radio.ui.main.MainActivity
+import dev.dennismcdaid.radio.util.asHttps
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import okhttp3.*
+import okhttp3.internal.readBomAsCharset
+import timber.log.Timber
+import java.io.IOException
 import javax.inject.Inject
+
 
 class AudioPlayerService : DaggerService() {
 
     @Inject
     lateinit var notificationManager: NotificationManager
+
+    @Inject
+    lateinit var okHttpClient: OkHttpClient
 
     private val player = MediaPlayer().apply {
         setOnPreparedListener { start() }
@@ -39,9 +53,20 @@ class AudioPlayerService : DaggerService() {
             ?: return super.onStartCommand(intent, flags, startId)
 
         if (!player.isPlaying) {
-            player.setDataSource(applicationContext, url.toUri())
-            player.isLooping = true
-            player.prepareAsync()
+            GlobalScope.launch {
+                followRedirects(url)
+                    .catch { e ->
+                        Timber.e(e)
+                        emit(url)
+                    }
+                    .map { it.asHttps() }
+                    .collect {
+                        Timber.d("SETTING $it")
+                        player.setDataSource(applicationContext, it.toUri())
+                        player.isLooping = true
+                        player.prepareAsync()
+                    }
+            }
         }
         return START_STICKY
     }
@@ -78,6 +103,28 @@ class AudioPlayerService : DaggerService() {
             .build()
     }
 
+    private fun followRedirects(original: String): Flow<String> {
+        val request = Request.Builder()
+            .url(original)
+            .head()
+            .build()
+
+        return callbackFlow {
+            val callback = object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    sendBlocking(original)
+                    close()
+                }
+                override fun onResponse(call: Call, response: Response) {
+                    sendBlocking(response.request.url.toString())
+                    close()
+                }
+            }
+            val call = okHttpClient.newCall(request)
+            call.enqueue(callback)
+            awaitClose { call.cancel() }
+        }
+    }
 
 
     companion object {

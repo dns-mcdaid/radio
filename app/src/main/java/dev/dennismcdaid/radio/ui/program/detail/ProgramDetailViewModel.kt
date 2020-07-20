@@ -25,8 +25,10 @@ class ProgramDetailViewModel @Inject constructor(
     private val episodeEmitter = BroadcastChannel<EpisodeBundle>(1)
 
     val navigateToEpisode = episodeEmitter.asLiveEvent(mainContext)
+    private var slug: String? = null
 
     fun setSlug(slug: String) {
+        this.slug = slug
         viewModelScope.launch {
             stationRepository.getProgram(slug)
                 .catch { e ->
@@ -49,7 +51,13 @@ class ProgramDetailViewModel @Inject constructor(
             return
         }
 
+        val slugger = slug ?: run {
+            snackbarEmitter.offer("Error loading episode")
+            return
+        }
+
         val bundle = EpisodeBundle(
+            slugger,
             program.programName,
             program.presenter,
             episode.startTime,

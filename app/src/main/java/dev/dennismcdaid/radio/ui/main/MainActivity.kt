@@ -29,7 +29,7 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<MainViewModel> { viewModelFactory }
+    val viewModel by viewModels<MainViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +58,6 @@ class MainActivity : DaggerAppCompatActivity() {
                     stopService(Intent(this, AudioPlayerService::class.java))
                 }
                 StreamAction.Error -> {
-
                 }
                 is StreamAction.Start -> {
                     val intent = Intent(this, AudioPlayerService::class.java).apply {
@@ -68,6 +67,10 @@ class MainActivity : DaggerAppCompatActivity() {
                 }
             }
         })
+
+        binding.nowPlaying.root.setOnClickListener {
+            Timber.d("Clicked!")
+        }
     }
 
     fun setTitle(title: String) {
@@ -75,7 +78,6 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        Timber.d("Doing the thing")
         return navController.navigateUp()
     }
 }

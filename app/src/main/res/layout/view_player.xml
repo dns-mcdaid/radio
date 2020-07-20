@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     tools:showIn="@layout/activity_main"
     android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <View
@@ -13,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/gray500"
         android:layout_width="0dp"
-        android:layout_height="1dp" />
+        android:layout_height="4dp" />
 
     <ImageView
         android:contentDescription="@string/cd_presenter_image"
