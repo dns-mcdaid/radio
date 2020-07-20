@@ -4,6 +4,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dev.dennismcdaid.radio.data.StationRepository
 import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
+import dev.dennismcdaid.radio.service.EpisodeDownloader
 import dev.dennismcdaid.radio.ui.asLiveEvent
 import dev.dennismcdaid.radio.ui.base.BaseViewModel
 import dev.dennismcdaid.radio.util.DateFormatter
@@ -16,7 +17,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class EpisodeViewModel @Inject constructor(
-    private val stationRepository: StationRepository
+    private val stationRepository: StationRepository,
+    private val episodeDownloader: EpisodeDownloader
 ) : BaseViewModel() {
 
     private val viewState = MutableStateFlow(EpisodeViewState())
@@ -43,12 +45,17 @@ class EpisodeViewModel @Inject constructor(
                 .collect {
                     viewState.value = viewState.value.copy(tracks = it, loading = false)
                 }
+
+            episodeDownloader.episodeIsDownloaded(bundle.slug, bundle.airDate)
+                .collect {
+                    viewState.value = viewState.value.copy(downloaded = it)
+                }
         }
     }
 
     fun playEpisode(bundle: EpisodeBundle) {
         viewModelScope.launch {
-            stationRepository.getEpisode(bundle.slug, bundle.airDate)
+            stationRepository.getEpisode(bundle.slug, DateFormatter.episodeDownloadPath(bundle.airDate))
                 .catch { e ->
                     Timber.e(e, "Error fetching episode")
                 }
@@ -58,15 +65,18 @@ class EpisodeViewModel @Inject constructor(
         }
     }
 
-    fun downloadEpisode(bundle: EpisodeBundle) {
+    fun onDownloadClicked(bundle: EpisodeBundle) {
         viewModelScope.launch {
-            stationRepository.getEpisode(bundle.slug, bundle.airDate)
-                .catch { e ->
-                    Timber.e(e, "Error fetching episode")
-                }
-                .collect {
-                    Timber.d(it.toString())
-                }
+            viewState.value = viewState.value.copy(loading = true)
+            if (viewState.value.downloaded) {
+                episodeDownloader.deleteEpisode(bundle.slug, bundle.airDate)
+                viewState.value = viewState.value.copy(loading = false, downloaded = false)
+            } else {
+                episodeDownloader.downloadEpisode(bundle.slug, bundle.airDate, bundle.description, bundle.playlistUrl)
+                    .collect {
+                        viewState.value = viewState.value.copy(loading = false)
+                    }
+            }
         }
     }
 }

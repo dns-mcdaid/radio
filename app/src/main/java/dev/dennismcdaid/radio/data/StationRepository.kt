@@ -21,5 +21,5 @@ interface StationRepository {
 
     fun getTracks(playlistUrl: String): Flow<List<AirnetTrack>>
 
-    fun getEpisode(programSlug: String, airDateTime: LocalDateTime): Flow<EmitEpisode>
+    fun getEpisode(programSlug: String, episodeId: String): Flow<EmitEpisode>
 }

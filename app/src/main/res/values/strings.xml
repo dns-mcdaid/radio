@@ -23,6 +23,8 @@
     <string name="go_live">Go Live</string>
     <string name="on_air">ON AIR</string>
 
+    <string name="download_permission_needed">We need these permissions to download episodes</string>
+
     <string name="cd_download">Download</string>
     <string name="cd_banner">Banner Image</string>
     <string name="cd_presenter_image">Presenter Image</string>

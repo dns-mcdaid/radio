@@ -9,6 +9,8 @@ import dev.dennismcdaid.radio.data.model.airnet.AirnetTrack
 import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import dev.dennismcdaid.radio.data.model.emit.EmitProgram
 import dev.dennismcdaid.radio.data.model.emit.EmitStation
+import dev.dennismcdaid.radio.data.source.remote.AirnetApi
+import dev.dennismcdaid.radio.data.source.remote.EmitApi
 import dev.dennismcdaid.radio.util.DateFormatter
 import kotlinx.coroutines.flow.*
 import org.joda.time.LocalDateTime
@@ -79,10 +81,9 @@ class ConcreteStationRepository @Inject constructor(
         }
     }
 
-    override fun getEpisode(programSlug: String, airDateTime: LocalDateTime): Flow<EmitEpisode> {
+    override fun getEpisode(programSlug: String, episodeId: String): Flow<EmitEpisode> {
         return flow {
-            val pathFormatted = DateFormatter.episodeDownloadPath(airDateTime)
-            emit(emitApi.getEpisode(stationType.emitCallSign, programSlug, pathFormatted))
+            emit(emitApi.getEpisode(stationType.emitCallSign, programSlug, episodeId))
         }
     }
 

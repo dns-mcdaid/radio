@@ -1,4 +1,4 @@
-package dev.dennismcdaid.radio.data.source
+package dev.dennismcdaid.radio.data.source.remote
 
 import dev.dennismcdaid.radio.data.model.airnet.AirnetEpisode
 import dev.dennismcdaid.radio.data.model.airnet.AirnetProgram

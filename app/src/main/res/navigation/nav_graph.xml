@@ -53,10 +53,24 @@
         android:id="@+id/episode"
         android:label="@string/episode_title"
         android:name="dev.dennismcdaid.radio.ui.program.episode.EpisodeFragment"
-        tools:layout="@layout/fragment_episode" >
+        tools:layout="@layout/fragment_episode">
         <argument
             android:name="bundle"
             app:argType="dev.dennismcdaid.radio.ui.program.episode.EpisodeBundle" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/saved"
+        android:name="dev.dennismcdaid.radio.ui.saved.SavedFragment"
+        android:label="@string/saved_title"
+        tools:layout="@layout/fragment_saved">
+        <action
+            android:id="@+id/action_saved_to_episode"
+            app:destination="@id/episode"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

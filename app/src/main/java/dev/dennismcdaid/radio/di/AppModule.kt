@@ -1,7 +1,9 @@
 package dev.dennismcdaid.radio.di
 
+import android.app.DownloadManager
 import android.app.NotificationManager
 import android.content.Context
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -11,8 +13,10 @@ import dev.dennismcdaid.radio.BuildConfig
 import dev.dennismcdaid.radio.data.model.EpisodeStatus
 import dev.dennismcdaid.radio.data.model.FormatType
 import dev.dennismcdaid.radio.data.model.StationType
-import dev.dennismcdaid.radio.data.source.AirnetApi
-import dev.dennismcdaid.radio.data.source.EmitApi
+import dev.dennismcdaid.radio.data.source.local.EpisodeDownloadDao
+import dev.dennismcdaid.radio.data.source.local.RadioDatabase
+import dev.dennismcdaid.radio.data.source.remote.AirnetApi
+import dev.dennismcdaid.radio.data.source.remote.EmitApi
 import dev.dennismcdaid.radio.util.DateFormatter
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -47,6 +51,28 @@ object AppModule {
             .add(DateFormatter.LocalTimeAdapter)
             .add(KotlinJsonAdapterFactory())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(context: Context): RadioDatabase {
+        return Room.databaseBuilder(
+            context,
+            RadioDatabase::class.java,
+            RadioDatabase.DB_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideEpisodesDao(database: RadioDatabase): EpisodeDownloadDao {
+        return database.episodesDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDownloadManager(context: Context): DownloadManager {
+        return context.getSystemService(DownloadManager::class.java) as DownloadManager
     }
 
     @Provides

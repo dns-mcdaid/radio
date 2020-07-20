@@ -44,7 +44,7 @@ class MainActivity : DaggerAppCompatActivity() {
         binding.navigationView.setupWithNavController(navController)
 
         // Setup Toolbar
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.schedule, R.id.programs))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.schedule, R.id.programs, R.id.saved))
         binding.toolbarLayout.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
 
 

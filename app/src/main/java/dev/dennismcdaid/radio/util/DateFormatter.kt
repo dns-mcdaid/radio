@@ -16,7 +16,7 @@ object DateFormatter {
 
     private const val TEXT_DATE = "EEE MMM dd yyyy"
 
-    private const val DOWNLOAD_FORMAT = "YYYYMMddHHmm"
+    const val DOWNLOAD_FORMAT = "YYYYMMddHHmm"
 
     fun localDateTime(dateStr: String): LocalDateTime {
         val formatter = DateTimeFormat.forPattern(ISO_8601)

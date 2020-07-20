@@ -1,4 +1,4 @@
-package dev.dennismcdaid.radio.data.source
+package dev.dennismcdaid.radio.data.source.remote
 
 import dev.dennismcdaid.radio.data.model.emit.EmitEpisode
 import dev.dennismcdaid.radio.data.model.emit.EmitProgram

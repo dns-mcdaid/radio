@@ -127,6 +127,7 @@ class AudioPlayerService : DaggerService() {
 
     companion object {
         const val STREAM_URL_KEY = "STREAM_URL"
+        const val LOCAL_URL = "LOCAL_URL"
         private const val CHANNEL_ID = "audio_playback_channel"
         private const val SERVICE_ID = 1067
 
